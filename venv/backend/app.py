@@ -12,12 +12,12 @@ def create_app():
     CORS(app)
     db.init_app(app)
 
-    @app.route("/ping")
-    def ping():
-        return {"status": "ok"}
-
+    @app.route("/")
+    def home():
+        return "Hello World"
+    
     return app
-
+    
 if __name__ == "__main__":
     app = create_app()
     app.run(debug=True)
