@@ -10,4 +10,9 @@ def create_app():
     CORS(app)
     db.init_app(app)
 
+    from .models.user import User
+    from .models.character import Character
+    from .models.enemy import Enemy
+
+
     return app
