@@ -5,14 +5,9 @@ from app.models.user import User
 
 auth_bp = Blueprint("auth", __name__)
 
-# ---------------------------------------------------------------REGISTER
-
-@auth_bp.route("/register", methods=["POST"])
+@auth_bp.route("/register", method=["post"])
 def register():
     data = request.get_json()
-
-    if data is None:
-        return jsonify({"error": "There is no data"}), 400
 
     username = data.get("username")
     email = data.get("email")
@@ -26,31 +21,15 @@ def register():
     if existing_user:
         return jsonify({"error", "The user already exists"}), 409
     
-    hashed_password = generate_password_hash(password)
+    hasked_password = generate_password_hash(password)
 
     new_user = User(
         username=username,
         email=email,
-        password=hashed_password
+        password=hasked_password
     )
 
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"message": "User created succesfully."}), 201
-
-#------------------------------------------------------------------LOGIN
-
-@auth_bp.route("/login", methods=["POST"])
-def login():
-    data = request.get_json()
-
-    if data is None:
-        return jsonify({"error": "There is no data"}), 400
-
-    username = data.get("username")
-    password = data.get("password")
-    
-    if not username or not password:
-        return jsonify({"error": "Missing data."}), 400
-    
+    return jsonify({"message", "User created succesfully."}), 201
