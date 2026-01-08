@@ -10,13 +10,7 @@ const Login = () => {
 
   return (
     <div>
-      <Button
-        label="log in"
-        icon="pi pi-external-link"
-        onClick={() => setVisible(true)}
-      />
-
-      <Modal visible={visible} setVisible={setVisible} />
+      <Button label="Click Me" icon="pi pi-check" className="p-button-raised" />
     </div>
   );
 };

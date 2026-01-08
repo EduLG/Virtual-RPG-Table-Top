@@ -1,3 +1,22 @@
-export default function Home() {
-    return <h1>Virtual Tabletop</h1>
-}
+import React from "react";
+import { Button } from "primereact/button";
+
+const Home = () => {
+  const handleClick = () => {
+    alert("El botón funciona!");
+  };
+
+  return (
+    <div style={{ padding: "2rem", textAlign: "center" }}>
+      <h1>Prueba de PrimeReact Theme</h1>
+      <Button
+        label="Botón Lara Dark Blue"
+        icon="pi pi-check"
+        onClick={handleClick}
+        className="p-button p-button-raised"
+      />
+    </div>
+  );
+};
+
+export default Home;
