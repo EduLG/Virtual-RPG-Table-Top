@@ -11,9 +11,9 @@ const Home = () => {
       <h1>Prueba de PrimeReact Theme</h1>
       <Button
         label="Botón Lara Dark Blue"
+        severity="primary"
         icon="pi pi-check"
         onClick={handleClick}
-        className="p-button p-button-raised"
       />
     </div>
   );
