@@ -1,12 +1,12 @@
-import bgImage from "../assets/resources/bgImage.png";
 import { Outlet } from "react-router-dom";
+import loginImage from "../assets/resources/loginImage.png";
 
-const MainLayout = () => {
+const LoginLayout = () => {
   return (
     <div
       style={{
         minHeight: "100vh",
-        backgroundImage: `url(${bgImage})`,
+        backgroundImage: `url(${loginImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         margin: "0px",
@@ -17,4 +17,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default LoginLayout;
