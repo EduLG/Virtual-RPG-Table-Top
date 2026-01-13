@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "../components/Modal";
+import LoginModal from "../components/modals/LoginModal";
 import { Button } from "primereact/button";
 
 const Login = () => {
