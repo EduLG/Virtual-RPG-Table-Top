@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import loginImage from "../assets/resources/loginImage.png";
+import loginImage from "../assets/resources/dawn_of_the_explorers.png";
 
 const LoginLayout = () => {
   return (
@@ -8,7 +8,8 @@ const LoginLayout = () => {
         minHeight: "100vh",
         backgroundImage: `url(${loginImage})`,
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPositionX: "center",
+        backgroundPositionY: "30%",
         margin: "0px",
       }}
     >

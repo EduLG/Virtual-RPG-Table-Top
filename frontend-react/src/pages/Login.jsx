@@ -1,16 +1,34 @@
 import React, { useState } from "react";
-import LoginModal from "../components/modals/LoginModal";
+import LogRegModal from "../components/modals/LogRegModal";
 import { Button } from "primereact/button";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [visible, setVisible] = useState(false);
+  const [logRegVisible, setLogRegVisible] = useState(false);
+  const [mode, setMode] = useState("login");
 
   return (
     <div>
-      <Button label="Click Me" icon="pi pi-check" className="p-button-raised" />
+      <Button
+        label="Login"
+        icon="pi pi-check"
+        onClick={() => {
+          setLogRegVisible(true);
+          setMode("login");
+        }}
+      />
+      <Button
+        label="Register"
+        icon="pi pi-check"
+        onClick={() => {
+          setLogRegVisible(true);
+          setMode("register");
+        }}
+      />
+      <LogRegModal
+        visible={logRegVisible}
+        setVisible={setLogRegVisible}
+        mode={mode}
+      />
     </div>
   );
 };
