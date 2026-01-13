@@ -7,7 +7,15 @@ const Login = () => {
   const [mode, setMode] = useState("login");
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        gap: "1rem",
+      }}
+    >
       <Button
         label="Login"
         icon="pi pi-check"
