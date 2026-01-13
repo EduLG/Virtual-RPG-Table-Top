@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 
-const Modal = (visible, setVisible) => {
+const LoginModal = (visible, setVisible) => {
   return (
     <div className="card flex justify-content-center">
       <Button
@@ -13,7 +13,6 @@ const Modal = (visible, setVisible) => {
       <Dialog
         header="Header"
         visible={visible}
-        style={{ width: "50vw" }}
         onHide={() => {
           if (!visible) return;
           setVisible(false);
@@ -28,4 +27,4 @@ const Modal = (visible, setVisible) => {
   );
 };
 
-export default Modal;
+export default LoginModal;
