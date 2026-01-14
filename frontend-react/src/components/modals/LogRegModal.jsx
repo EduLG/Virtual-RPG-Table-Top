@@ -5,7 +5,7 @@ import { InputText } from "primereact/inputtext";
 
 const LoginModal = ({ visible, setVisible, mode }) => {
   return (
-    <div className="card flex justify-content-center">
+    <div>
       <Dialog
         visible={visible}
         onHide={() => {

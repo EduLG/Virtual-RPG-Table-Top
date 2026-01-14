@@ -18,7 +18,6 @@ const Login = () => {
     >
       <Button
         label="Login"
-        icon="pi pi-check"
         onClick={() => {
           setLogRegVisible(true);
           setMode("login");
@@ -26,7 +25,6 @@ const Login = () => {
       />
       <Button
         label="Register"
-        icon="pi pi-check"
         onClick={() => {
           setLogRegVisible(true);
           setMode("register");
