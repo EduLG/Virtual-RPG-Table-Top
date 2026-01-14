@@ -28,12 +28,14 @@ const LoginModal = ({
 
             <Text>User Name</Text>
             <TextField.Root
+              value={userName}
               placeholder="Username"
               onChange={(e) => setUserName(e.target.value)}
             />
 
             <Text>Password</Text>
             <TextField.Root
+              value={password}
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
@@ -47,18 +49,21 @@ const LoginModal = ({
 
             <Text>Email</Text>
             <TextField.Root
+              value={email}
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
 
             <Text>User Name</Text>
             <TextField.Root
+              value={userName}
               placeholder="Username"
               onChange={(e) => setUserName(e.target.value)}
             />
 
             <Text>Password</Text>
             <TextField.Root
+              value={password}
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
