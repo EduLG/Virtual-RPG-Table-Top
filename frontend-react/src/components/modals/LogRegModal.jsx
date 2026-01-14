@@ -8,35 +8,62 @@ import {
   Flex,
 } from "@radix-ui/themes";
 
-const LoginModal = ({ visible, setVisible, mode }) => {
+const LoginModal = ({
+  visible,
+  setVisible,
+  mode,
+  userName,
+  setUserName,
+  password,
+  setPassword,
+  email,
+  setEmail,
+}) => {
   return (
     <Dialog.Root open={visible} onOpenChange={setVisible}>
       <Dialog.Content maxWidth="400px">
         {mode === "login" ? (
           <Flex direction="column" gap="3">
-            <Heading size="4">Log in</Heading>
+            <Heading size="7">Log in</Heading>
 
             <Text>User Name</Text>
-            <TextField.Root placeholder="Username" />
+            <TextField.Root
+              placeholder="Username"
+              onChange={(e) => setUserName(e.target.value)}
+            />
 
             <Text>Password</Text>
-            <TextField.Root type="password" placeholder="Password" />
-
+            <TextField.Root
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <br />
             <Button>Login</Button>
           </Flex>
         ) : (
           <Flex direction="column" gap="3">
-            <Heading size="4">Register</Heading>
+            <Heading size="7">Register</Heading>
 
             <Text>Email</Text>
-            <TextField.Root placeholder="Email" />
+            <TextField.Root
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
             <Text>User Name</Text>
-            <TextField.Root placeholder="Username" />
+            <TextField.Root
+              placeholder="Username"
+              onChange={(e) => setUserName(e.target.value)}
+            />
 
             <Text>Password</Text>
-            <TextField.Root type="password" placeholder="Password" />
-
+            <TextField.Root
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <br />
             <Button>Register</Button>
           </Flex>
         )}
