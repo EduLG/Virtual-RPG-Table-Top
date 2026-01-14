@@ -68,6 +68,7 @@ def login():
     
     return jsonify({
         "message": "Login successful",
+        "access_token": access_token,
         "user_id": user.id,
         "username": user.username
     }), 200

@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth } from "../../hooks/useAuth";
 import {
   Dialog,
   Button,
@@ -19,6 +20,26 @@ const LoginModal = ({
   email,
   setEmail,
 }) => {
+  const { login, register, loading, error } = useAuth();
+
+  const handleRegister = async () => {
+    try {
+      await register(email, userName, password);
+      setVisible(false);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      await login(userName, password);
+      setVisible(false);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
   return (
     <Dialog.Root open={visible} onOpenChange={setVisible}>
       <Dialog.Content maxWidth="400px">
@@ -41,7 +62,9 @@ const LoginModal = ({
               onChange={(e) => setPassword(e.target.value)}
             />
             <br />
-            <Button>Login</Button>
+            <Button onClick={handleLogin} disabled={loading}>
+              Login
+            </Button>
           </Flex>
         ) : (
           <Flex direction="column" gap="3">
@@ -69,7 +92,9 @@ const LoginModal = ({
               onChange={(e) => setPassword(e.target.value)}
             />
             <br />
-            <Button>Register</Button>
+            <Button onClick={handleRegister} disabled={loading}>
+              Register
+            </Button>
           </Flex>
         )}
       </Dialog.Content>
