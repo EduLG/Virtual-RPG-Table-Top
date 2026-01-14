@@ -5,9 +5,6 @@ import { Button } from "@radix-ui/themes";
 const Login = () => {
   const [logRegVisible, setLogRegVisible] = useState(false);
   const [mode, setMode] = useState("login");
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
 
   return (
     <div
@@ -39,12 +36,6 @@ const Login = () => {
         visible={logRegVisible}
         setVisible={setLogRegVisible}
         mode={mode}
-        userName={userName}
-        setUserName={setUserName}
-        password={password}
-        setPassword={setPassword}
-        email={email}
-        setEmail={setEmail}
       />
     </div>
   );

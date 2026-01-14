@@ -8,7 +8,7 @@ export function useAuth() {
 
   // ----------------------------------------------------------- REGISTER
 
-  const register = async (username, email, password) => {
+  const register = async (email, username, password) => {
     setLoading(true);
     setError(null);
 
@@ -18,7 +18,7 @@ export function useAuth() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ email, username, password }),
       });
 
       const data = await res.json();

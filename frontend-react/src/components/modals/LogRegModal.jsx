@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import {
   Dialog,
@@ -9,18 +9,11 @@ import {
   Flex,
 } from "@radix-ui/themes";
 
-const LoginModal = ({
-  visible,
-  setVisible,
-  mode,
-  userName,
-  setUserName,
-  password,
-  setPassword,
-  email,
-  setEmail,
-}) => {
+const LoginModal = ({ visible, setVisible, mode }) => {
   const { login, register, loading, error } = useAuth();
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleRegister = async () => {
     try {

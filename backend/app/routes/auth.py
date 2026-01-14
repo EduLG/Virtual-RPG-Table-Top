@@ -59,10 +59,10 @@ def login():
     user = User.query.filter_by(username=username).first()
 
     if not user:
-        return jsonify({"error": "Invalid credentials"}), 401
+        return jsonify({"error": "Invalid user"}), 401
     
     if not check_password_hash(user.password, password):
-        return jsonify({"error": "Invalid credentials"}), 401
+        return jsonify({"error": "Invalid pass"}), 401
     
     access_token = create_access_token(identity=user.id)
     
