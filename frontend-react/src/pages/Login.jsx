@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LogRegModal from "../components/modals/LogRegModal";
-import { Button } from "primereact/button";
+import { Button } from "@radix-ui/themes";
 
 const Login = () => {
   const [logRegVisible, setLogRegVisible] = useState(false);

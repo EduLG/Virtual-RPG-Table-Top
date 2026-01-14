@@ -1,39 +1,47 @@
-import React, { useState } from "react";
-import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
+import React from "react";
+import {
+  Dialog,
+  Button,
+  Text,
+  Heading,
+  TextField,
+  Flex,
+} from "@radix-ui/themes";
 
 const LoginModal = ({ visible, setVisible, mode }) => {
   return (
-    <div>
-      <Dialog
-        visible={visible}
-        onHide={() => {
-          if (!visible) return;
-          setVisible(false);
-        }}
-      >
+    <Dialog.Root open={visible} onOpenChange={setVisible}>
+      <Dialog.Content maxWidth="400px">
         {mode === "login" ? (
-          <>
-            <h2>Log in</h2>
-            <p>User Name:</p>
-            <InputText />
-            <p>Password:</p>
-            <InputText />
-          </>
+          <Flex direction="column" gap="3">
+            <Heading size="4">Log in</Heading>
+
+            <Text>User Name</Text>
+            <TextField.Root placeholder="Username" />
+
+            <Text>Password</Text>
+            <TextField.Root type="password" placeholder="Password" />
+
+            <Button>Login</Button>
+          </Flex>
         ) : (
-          <>
-            <h2>Register</h2>
-            <p>Email:</p>
-            <InputText />
-            <p>User Name:</p>
-            <InputText />
-            <p>Password:</p>
-            <InputText />
-          </>
+          <Flex direction="column" gap="3">
+            <Heading size="4">Register</Heading>
+
+            <Text>Email</Text>
+            <TextField.Root placeholder="Email" />
+
+            <Text>User Name</Text>
+            <TextField.Root placeholder="Username" />
+
+            <Text>Password</Text>
+            <TextField.Root type="password" placeholder="Password" />
+
+            <Button>Register</Button>
+          </Flex>
         )}
-      </Dialog>
-    </div>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 };
 
