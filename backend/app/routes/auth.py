@@ -38,7 +38,7 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"message": "User created succesfully."}), 201
+    return jsonify({"message": "User created successfully."}), 201
 
 #------------------------------------------------------------------LOGIN
 
@@ -64,7 +64,7 @@ def login():
         return jsonify({"error": "Invalid credentials"}), 401
     
     return jsonify({
-        "message": "Login succesful",
+        "message": "Login successful",
         "user_id": user.id,
         "username": user.username
     }), 200
