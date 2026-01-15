@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import {
   Dialog,
@@ -10,6 +11,7 @@ import {
 } from "@radix-ui/themes";
 
 const LoginModal = ({ visible, setVisible, mode }) => {
+  const navigate = useNavigate();
   const { login, register, loading, error } = useAuth();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -56,7 +58,13 @@ const LoginModal = ({ visible, setVisible, mode }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <br />
-            <Button onClick={handleLogin} disabled={loading}>
+            <Button
+              disabled={loading}
+              onClick={() => {
+                handleLogin;
+                navigate("/home");
+              }}
+            >
               Login
             </Button>
           </Flex>
