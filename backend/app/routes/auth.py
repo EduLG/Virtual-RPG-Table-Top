@@ -64,12 +64,12 @@ def login():
     if not check_password_hash(user.password, password):
         return jsonify({"error": "Invalid pass"}), 401
     
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(identity=user.user_id)
     
     return jsonify({
         "message": "Login successful",
         "access_token": access_token,
-        "user_id": user.id,
+        "user_id": user.user_id,
         "username": user.username
     }), 200
     

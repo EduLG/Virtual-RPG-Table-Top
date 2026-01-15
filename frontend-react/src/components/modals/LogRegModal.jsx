@@ -36,6 +36,7 @@ const LoginModal = ({ visible, setVisible, mode }) => {
   return (
     <Dialog.Root open={visible} onOpenChange={setVisible}>
       <Dialog.Content maxWidth="400px">
+        <Dialog.Title>Register form</Dialog.Title>
         {mode === "login" ? (
           <Flex direction="column" gap="3">
             <Heading size="7">Log in</Heading>
@@ -64,6 +65,7 @@ const LoginModal = ({ visible, setVisible, mode }) => {
             <Heading size="7">Register</Heading>
 
             <Text>Email</Text>
+
             <TextField.Root
               value={email}
               placeholder="Email"
@@ -71,6 +73,7 @@ const LoginModal = ({ visible, setVisible, mode }) => {
             />
 
             <Text>User Name</Text>
+
             <TextField.Root
               value={userName}
               placeholder="Username"
@@ -78,13 +81,16 @@ const LoginModal = ({ visible, setVisible, mode }) => {
             />
 
             <Text>Password</Text>
+
             <TextField.Root
               value={password}
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
+
             <br />
+
             <Button onClick={handleRegister} disabled={loading}>
               Register
             </Button>
