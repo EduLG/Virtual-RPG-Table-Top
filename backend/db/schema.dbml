@@ -1,0 +1,36 @@
+Table users {
+  id int [pk]
+  username varchar [unique, not null]
+  email varchar [unique, not null]
+  password varchar [not null]
+}
+
+Table parties {
+  id int [pk]
+  user_id int [unique, not null, ref: > users.id]
+}
+
+Table characters {
+  id int [pk]
+  party_id int [not null, ref: > parties.id]
+  class varchar [not null] // adventurer, engineer, scholar, alchemist
+}
+
+Table equipment {
+  id int [pk]
+  user_id int [not null, ref: > users.id]
+  slot varchar [not null] // head, chest, legs, main_weapon, off_weapon
+  allowed_class varchar [not null] // class que puede usarla
+  rating int [not null]
+}
+
+Table character_equipment {
+  id int [pk]
+  character_id int [not null, ref: > characters.id]
+  equipment_id int [not null, ref: > equipment.id]
+  slot varchar [not null]
+
+  Indexes {
+    (character_id, slot) [unique] // max 1 pieza por slot
+  }
+}
