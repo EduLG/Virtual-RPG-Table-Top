@@ -20,6 +20,7 @@ const LoginModal = ({ visible, setVisible, mode }) => {
   const handleRegister = async () => {
     try {
       await register(email, userName, password);
+      navigate("/home");
       setVisible(false);
     } catch (e) {
       console.error(e.message);
@@ -29,6 +30,7 @@ const LoginModal = ({ visible, setVisible, mode }) => {
   const handleLogin = async () => {
     try {
       await login(userName, password);
+      navigate("/home");
       setVisible(false);
     } catch (e) {
       console.error(e.message);
@@ -61,8 +63,7 @@ const LoginModal = ({ visible, setVisible, mode }) => {
             <Button
               disabled={loading}
               onClick={() => {
-                handleLogin;
-                navigate("/home");
+                handleLogin();
               }}
             >
               Login
