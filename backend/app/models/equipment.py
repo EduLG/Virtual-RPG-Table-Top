@@ -1,7 +1,7 @@
 from ..extensions import db
 
 class Equipment(db.Model):
-    __tablename__ = 'equipment'
+    __tablename__ = 'equipments'
 
     equipment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
@@ -12,4 +12,4 @@ class Equipment(db.Model):
     character_type = db.Column(db.String(20), nullable=False)
 
     # Relation with CharacterEquipment
-    assignments = db.relationship('CharacterEquipment', backref='equipment', lazy=True)
+    assignments = db.relationship('CharacterEquipments', backref='equipment', lazy=True)
