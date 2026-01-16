@@ -15,9 +15,12 @@ def create_app():
     CORS(app)
     db.init_app(app)
 
-    from .models.user import User
-    from .models.character import Character
-    from .models.enemy import Enemy
+    from app.models.user import User
+    from app.models.character import Character
+    from app.models.equipment_type import EquipmentType
+    from app.models.equipment import Equipment
+    from app.models.character_equipment import CharacterEquipment
+
 
     app.register_blueprint(auth_bp)
 

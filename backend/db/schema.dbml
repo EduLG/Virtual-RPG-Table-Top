@@ -1,36 +1,39 @@
 Table users {
-  id int [pk]
-  username varchar [unique, not null]
-  email varchar [unique, not null]
-  password varchar [not null]
-}
-
-Table parties {
-  id int [pk]
-  user_id int [unique, not null, ref: > users.id]
+  user_id int [pk, increment]
+  username varchar(50) [not null]
+  email varchar(100) [not null, unique]
+  password varchar(255) [not null]
 }
 
 Table characters {
-  id int [pk]
-  party_id int [not null, ref: > parties.id]
-  class varchar [not null] // adventurer, engineer, scholar, alchemist
+  character_id int [pk, increment]
+  user_id int [not null, ref: > users.user_id]
+  character_type varchar(20) [not null] // adventurer, engineer, alchemist, scholar
+  name varchar(50) [not null]
+}
+
+Table equipment_types {
+  type_id int [pk, increment]
+  name varchar(50) [not null] // cabeza, pecho, piernas, arma_principal, arma_secundaria
 }
 
 Table equipment {
-  id int [pk]
-  user_id int [not null, ref: > users.id]
-  slot varchar [not null] // head, chest, legs, main_weapon, off_weapon
-  allowed_class varchar [not null] // class que puede usarla
+  equipment_id int [pk, increment]
+  name varchar(50) [not null]
+  type_id int [not null, ref: > equipment_types.type_id]
   rating int [not null]
+  strength int [default: 0]
+  defense int [default: 0]
+  character_type varchar(20) [not null] // indica qué personaje puede equiparlo
 }
 
 Table character_equipment {
-  id int [pk]
-  character_id int [not null, ref: > characters.id]
-  equipment_id int [not null, ref: > equipment.id]
-  slot varchar [not null]
+  char_eq_id int [pk, increment]
+  character_id int [not null, ref: > characters.character_id]
+  equipment_id int [not null, ref: > equipment.equipment_id]
+  type_id int [not null, ref: > equipment_types.type_id]
 
   Indexes {
-    (character_id, slot) [unique] // max 1 pieza por slot
+    (character_id, type_id) [unique]
   }
 }

@@ -8,4 +8,5 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False, unique=False)
     password = db.Column(db.String(255), nullable=False)
 
+    # Relation with Character
     characters = db.relationship('Character', backref='owner', lazy=True)

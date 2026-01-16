@@ -11,28 +11,28 @@
       "y": 69.2795245202226
     },
     {
-      "name": "parties",
-      "schemaName": "public",
-      "x": 248.11234908143456,
-      "y": 37.94616188119079
-    },
-    {
       "name": "characters",
       "schemaName": "public",
-      "x": 548.2000182393421,
-      "y": 5.94616188119079
+      "x": -24.42752962748574,
+      "y": 37.03165733681874
+    },
+    {
+      "name": "equipment_types",
+      "schemaName": "public",
+      "x": 628.4394777863708,
+      "y": 205.6022619437682
     },
     {
       "name": "equipment",
       "schemaName": "public",
-      "x": 13.921878868516586,
-      "y": 269.35604999491983
+      "x": 628.4394777863708,
+      "y": -77.96755921696166
     },
     {
       "name": "character_equipment",
       "schemaName": "public",
-      "x": 332.76518062651854,
-      "y": 204.9188200128409
+      "x": 300.04360646269987,
+      "y": 5.317217613546688
     }
   ],
   "tableGroupCollapseStates": [],
@@ -40,28 +40,13 @@
   "referencePaths": [
     {
       "firstFieldNames": [
-        "id"
+        "user_id"
       ],
       "firstTableName": "users",
       "firstSchemaName": "public",
       "firstRelation": "1",
       "secondFieldNames": [
         "user_id"
-      ],
-      "secondTableName": "parties",
-      "secondSchemaName": "public",
-      "secondRelation": "*",
-      "checkPoints": []
-    },
-    {
-      "firstFieldNames": [
-        "id"
-      ],
-      "firstTableName": "parties",
-      "firstSchemaName": "public",
-      "firstRelation": "1",
-      "secondFieldNames": [
-        "party_id"
       ],
       "secondTableName": "characters",
       "secondSchemaName": "public",
@@ -70,13 +55,13 @@
     },
     {
       "firstFieldNames": [
-        "id"
+        "type_id"
       ],
-      "firstTableName": "users",
+      "firstTableName": "equipment_types",
       "firstSchemaName": "public",
       "firstRelation": "1",
       "secondFieldNames": [
-        "user_id"
+        "type_id"
       ],
       "secondTableName": "equipment",
       "secondSchemaName": "public",
@@ -85,7 +70,7 @@
     },
     {
       "firstFieldNames": [
-        "id"
+        "character_id"
       ],
       "firstTableName": "characters",
       "firstSchemaName": "public",
@@ -100,13 +85,28 @@
     },
     {
       "firstFieldNames": [
-        "id"
+        "equipment_id"
       ],
       "firstTableName": "equipment",
       "firstSchemaName": "public",
       "firstRelation": "1",
       "secondFieldNames": [
         "equipment_id"
+      ],
+      "secondTableName": "character_equipment",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "type_id"
+      ],
+      "firstTableName": "equipment_types",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "type_id"
       ],
       "secondTableName": "character_equipment",
       "secondSchemaName": "public",
