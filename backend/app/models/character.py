@@ -9,4 +9,4 @@ class Character(db.Model):
     name = db.Column(db.String(50), nullable=False)
 
     # Relation with CharacterEquipment
-    equipment_assignments = db.relationship('CharacterEquipments', backref='character', lazy=True)
+    equipment_assignments = db.relationship('CharacterEquipment', backref='character', lazy=True)

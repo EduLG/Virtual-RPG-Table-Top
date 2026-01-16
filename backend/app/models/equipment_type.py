@@ -7,4 +7,4 @@ class EquipmentType(db.Model):
     name = db.Column(db.String(50), nullable=False)
 
     # Relation with Equipment
-    equipment_items = db.relationship('Equipments', backref='type', lazy=True)
+    equipment_items = db.relationship('Equipment', backref='type', lazy=True)
