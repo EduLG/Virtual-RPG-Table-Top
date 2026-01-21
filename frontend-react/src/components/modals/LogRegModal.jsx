@@ -18,12 +18,23 @@ const LoginModal = ({ visible, setVisible, mode }) => {
   const [email, setEmail] = useState("");
 
   const handleRegister = async () => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!regex.test(email)) {
+      alert("Not a valid email format");
+      return;
+    }
+
     try {
       await register(email, userName, password);
       navigate("/home");
       setVisible(false);
     } catch (e) {
-      console.error(e.message);
+      if (e.status === 409) {
+        alert("Username already exists");
+      } else {
+        alert("Error while trying to register");
+      }
     }
   };
 
@@ -40,7 +51,7 @@ const LoginModal = ({ visible, setVisible, mode }) => {
   return (
     <Dialog.Root open={visible} onOpenChange={setVisible}>
       <Dialog.Content maxWidth="400px">
-        <Dialog.Title>Register form</Dialog.Title>
+        <Dialog.Title></Dialog.Title>
         {mode === "login" ? (
           <Flex direction="column" gap="3">
             <Heading size="7">Log in</Heading>
@@ -59,7 +70,12 @@ const LoginModal = ({ visible, setVisible, mode }) => {
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <br />
+
+            {error && (
+              <Text size="22" style={{ marginTop: "5px" }}>
+                {error}
+              </Text>
+            )}
             <Button
               disabled={loading}
               onClick={() => {
@@ -77,6 +93,7 @@ const LoginModal = ({ visible, setVisible, mode }) => {
 
             <TextField.Root
               value={email}
+              type="email"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -97,9 +114,6 @@ const LoginModal = ({ visible, setVisible, mode }) => {
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-
-            <br />
-
             <Button onClick={handleRegister} disabled={loading}>
               Register
             </Button>

@@ -21,10 +21,25 @@ export function useAuth() {
         body: JSON.stringify({ email, username, password }),
       });
 
-      const data = await res.json();
+      let data;
+
+      const contentType = res.headers.get("content-type");
+
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        throw {
+          status: res.status,
+          message: "Invalid server response",
+        };
+      }
 
       if (!res.ok) {
-        throw new Error(data.error || "Register failed");
+        throw {
+          status: res.status,
+          message: data.error || "Register failed",
+        };
       }
 
       return data;
@@ -51,7 +66,14 @@ export function useAuth() {
         body: JSON.stringify({ username, password }),
       });
 
-      const data = await res.json();
+      let data;
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        throw new Error("Server answer invalid");
+      }
 
       if (!res.ok) {
         throw new Error(data.error || "Login failed");

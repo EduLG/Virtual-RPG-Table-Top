@@ -23,10 +23,11 @@ def register():
     if not username or not email or not password:
         return jsonify({"error": "Missing data"}), 400
 
-    existing_user = User.query.filter_by(email=email).first()
-
-    if existing_user:
+    if User.query.filter_by(username=username).first():
         return jsonify({"error": "The user already exists"}), 409
+    
+    if User.query.filter_by(email=email).first():
+        return jsonify({"error":"The email already exists"}), 409
 
     hashed_password = generate_password_hash(password)
 
