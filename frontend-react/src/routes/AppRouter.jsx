@@ -14,10 +14,8 @@ export default function AppRouter() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/">
-            <Route index element={<Home />} />
-            <Route path="/home" element={<Home />} />
-          </Route>
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>
