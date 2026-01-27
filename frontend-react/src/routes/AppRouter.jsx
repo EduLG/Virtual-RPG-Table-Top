@@ -13,16 +13,11 @@ export default function AppRouter() {
           <Route path="/login" element={<Login />} />
         </Route>
 
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <MainLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Home />} />
-          <Route path="/home" element={<Home />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/">
+            <Route index element={<Home />} />
+            <Route path="/home" element={<Home />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
