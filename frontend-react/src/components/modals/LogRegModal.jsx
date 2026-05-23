@@ -47,8 +47,8 @@ const LogRegModal = ({ visible, setVisible, mode }) => {
       await login(userName, password);
       navigate("/home/team");
       setVisible(false);
-    } catch (e) {
-      setLocalError(e.status === 409 ? "Username or email already exists." : "Registration failed. Try again.");
+    } catch (err) {
+      setLocalError(err.status === 409 ? "Username or email already exists." : "Registration failed. Try again.");
     }
   };
 
@@ -58,7 +58,7 @@ const LogRegModal = ({ visible, setVisible, mode }) => {
       await login(userName, password);
       navigate("/home/team");
       setVisible(false);
-    } catch (e) {
+    } catch {
       setLocalError("Invalid username or password.");
     }
   };

@@ -1,3 +1,4 @@
+import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, create_refresh_token
 
@@ -42,6 +43,29 @@ def register_user(username, email, password):
     hashed = generate_password_hash(password)
     user = create_user(username, email, hashed)
     return user
+
+
+def create_demo_session():
+    """
+    Creates an in-memory demo session and returns a JWT with demo claims.
+    No DB write occurs.
+    """
+    from app.demo.demo_store import demo_store
+
+    session_id = f"demo-{uuid.uuid4().hex}"
+    demo_store.create_session(session_id)
+
+    additional_claims = {"is_demo": True, "demo_session_id": session_id}
+    access_token = create_access_token(identity=session_id, additional_claims=additional_claims)
+    refresh_token = create_refresh_token(identity=session_id, additional_claims=additional_claims)
+
+    return {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "user_id": session_id,
+        "username": "demo_visitor",
+        "is_demo": True,
+    }
 
 
 def authenticate_user(username, password):

@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, g
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.services.auth_service import ServiceError
@@ -18,6 +18,14 @@ def setup_party_handler():
 
     if not party_name or not isinstance(characters_data, list):
         return jsonify({"error": "party_name and characters are required"}), 400
+
+    if g.get("is_demo"):
+        from app.demo.demo_services import demo_setup_party
+        try:
+            demo_setup_party(g.demo_session_id, party_name, characters_data)
+            return jsonify({"message": "Party set up successfully"}), 200
+        except ServiceError as e:
+            return jsonify({"error": str(e)}), e.status_code
 
     try:
         setup_party(user_id, party_name, characters_data)

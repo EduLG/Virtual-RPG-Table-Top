@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useInventory } from "../hooks/useInventory";
 import { useUpdateEquipment } from "../hooks/useUpdateEquipment";
@@ -48,10 +48,8 @@ const EquipmentView = () => {
   } = useInventory();
   const { updateEquipment, saving } = useUpdateEquipment();
 
-  useEffect(() => {
-    if (characters.length > 0 && !selectedCharId)
-      setSelectedCharId(characters[0].id);
-  }, [characters]);
+  // selectedChar already falls back to characters[0] when selectedCharId is null,
+  // so no effect is needed to initialise the selection.
 
   const equippedBySelectedChar = useMemo(
     () =>

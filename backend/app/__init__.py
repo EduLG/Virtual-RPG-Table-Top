@@ -20,6 +20,47 @@ def create_app():
 
     jwt = JWTManager(app)
 
+    @jwt.token_in_blocklist_loader
+    def check_demo_session_valid(jwt_header, jwt_payload):
+        """
+        Invalidate demo tokens whose session has been destroyed.
+        Returns True (blocked) if the demo session no longer exists.
+        """
+        if not jwt_payload.get("is_demo"):
+            return False
+        from app.demo.demo_store import demo_store
+        session_id = jwt_payload.get("demo_session_id")
+        return not demo_store.session_exists(session_id)
+
+    from flask_jwt_extended import get_jwt
+    from flask import g
+
+    @app.after_request
+    def _inject_demo_context(response):
+        return response
+
+    # Inject demo context into Flask g on every verified JWT request
+    from flask_jwt_extended import verify_jwt_in_request
+    from flask import request as flask_request
+
+    @app.before_request
+    def _set_demo_context():
+        auth_header = flask_request.headers.get("Authorization", "")
+        if not auth_header.startswith("Bearer "):
+            return
+        try:
+            verify_jwt_in_request(optional=True)
+            claims = get_jwt()
+            if claims.get("is_demo"):
+                g.is_demo = True
+                g.demo_session_id = claims.get("demo_session_id")
+            else:
+                g.is_demo = False
+                g.demo_session_id = None
+        except Exception:
+            g.is_demo = False
+            g.demo_session_id = None
+
     frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
     CORS(app, origins=[frontend_url], allow_headers=["Content-Type", "Authorization"], methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"])
     db.init_app(app)
