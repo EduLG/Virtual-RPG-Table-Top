@@ -17,11 +17,29 @@ const LogRegModal = ({ visible, setVisible, mode }) => {
 
   if (!visible) return null;
 
+  const passwordRules = [
+    { label: "8+ characters", valid: password.length >= 8 },
+    { label: "Uppercase letter", valid: /[A-Z]/.test(password) },
+    { label: "Lowercase letter", valid: /[a-z]/.test(password) },
+  ];
+
+  const validatePassword = (pwd) => {
+    if (pwd.length < 8) return "Password must be at least 8 characters.";
+    if (!/[A-Z]/.test(pwd)) return "Password must contain at least one uppercase letter.";
+    if (!/[a-z]/.test(pwd)) return "Password must contain at least one lowercase letter.";
+    return null;
+  };
+
   const handleRegister = async () => {
     setLocalError("");
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!regex.test(email)) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
       setLocalError("Please enter a valid email address.");
+      return;
+    }
+    const pwdError = validatePassword(password);
+    if (pwdError) {
+      setLocalError(pwdError);
       return;
     }
     try {
@@ -29,8 +47,8 @@ const LogRegModal = ({ visible, setVisible, mode }) => {
       await login(userName, password);
       navigate("/home/team");
       setVisible(false);
-    } catch (e) {
-      setLocalError(e.status === 409 ? "Username or email already exists." : "Registration failed. Try again.");
+    } catch (err) {
+      setLocalError(err.status === 409 ? "Username or email already exists." : "Registration failed. Try again.");
     }
   };
 
@@ -40,7 +58,7 @@ const LogRegModal = ({ visible, setVisible, mode }) => {
       await login(userName, password);
       navigate("/home/team");
       setVisible(false);
-    } catch (e) {
+    } catch {
       setLocalError("Invalid username or password.");
     }
   };
@@ -97,6 +115,21 @@ const LogRegModal = ({ visible, setVisible, mode }) => {
               onChange={(e) => setPassword(e.target.value)}
               className={inputClass}
             />
+            {mode === "register" && password.length > 0 && (
+              <ul className="flex flex-col gap-0.5 mt-1">
+                {passwordRules.map((rule) => (
+                  <li
+                    key={rule.label}
+                    className={`text-xs flex items-center gap-1.5 transition-colors ${
+                      rule.valid ? "text-green-400" : "text-[#6b5a45]"
+                    }`}
+                  >
+                    <span>{rule.valid ? "+" : "-"}</span>
+                    {rule.label}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {(localError || error) && (

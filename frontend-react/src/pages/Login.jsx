@@ -1,14 +1,28 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import LogRegModal from "../components/modals/LogRegModal";
-import headerlogo from "../assets/resources/header-logo.png";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { loginDemo, loading } = useAuth();
   const [logRegVisible, setLogRegVisible] = useState(false);
   const [mode, setMode] = useState("login");
+  const [demoError, setDemoError] = useState("");
 
   const openModal = (selectedMode) => {
     setMode(selectedMode);
     setLogRegVisible(true);
+  };
+
+  const handleDemo = async () => {
+    setDemoError("");
+    try {
+      await loginDemo();
+      navigate("/home/team");
+    } catch {
+      setDemoError("Could not start demo. Try again.");
+    }
   };
 
   return (
@@ -30,6 +44,28 @@ const Login = () => {
           >
             Create Account
           </button>
+
+          <div className="flex items-center gap-3 my-1">
+            <div className="flex-1 h-px bg-white/10" />
+            <span className="text-[#6b5a45] text-xs uppercase tracking-widest">or</span>
+            <div className="flex-1 h-px bg-white/10" />
+          </div>
+
+          <button
+            onClick={handleDemo}
+            disabled={loading}
+            className="w-full py-3 rounded-xl bg-transparent hover:bg-white/5 border border-white/10 text-[#a89070] hover:text-[#f3e5c8] font-semibold text-sm tracking-wide uppercase transition-colors disabled:opacity-50"
+          >
+            {loading ? "Starting..." : "Try Demo"}
+          </button>
+
+          {demoError && (
+            <p className="text-red-400 text-xs text-center">{demoError}</p>
+          )}
+
+          <p className="text-[#4a3a2a] text-xs text-center">
+            Demo mode — no account needed, changes are not saved
+          </p>
         </div>
       </div>
 

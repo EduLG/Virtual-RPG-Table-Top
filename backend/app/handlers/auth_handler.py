@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
-from app.services.auth_service import register_user, authenticate_user, ServiceError
+from app.services.auth_service import register_user, authenticate_user, create_demo_session, ServiceError
 
 
 def register_user_handler():
@@ -42,6 +42,21 @@ def login_user_handler():
         return jsonify({"error": str(e)}), e.status_code
     except Exception:
         return jsonify({"error": "Internal server error"}), 500
+
+
+def demo_login_handler():
+    try:
+        payload = create_demo_session()
+        return jsonify({
+            "message": "Demo session started",
+            "access_token": payload["access_token"],
+            "refresh_token": payload["refresh_token"],
+            "user_id": payload["user_id"],
+            "username": payload["username"],
+            "is_demo": True,
+        }), 200
+    except Exception:
+        return jsonify({"error": "Could not start demo session"}), 500
 
 
 @jwt_required(refresh=True)

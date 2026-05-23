@@ -3,15 +3,15 @@ import { Navigate, Outlet } from "react-router-dom";
 import { apiFetch } from "../utils/apiFetch";
 
 const ProtectedRoute = () => {
-  const [status, setStatus] = useState("checking"); // "checking" | "ok" | "unauthorized"
+  // Initialize directly from localStorage — no synchronous setState inside the effect
+  const [status, setStatus] = useState(
+    () => localStorage.getItem("token") ? "checking" : "unauthorized"
+  );
 
   useEffect(() => {
-    const controller = new AbortController();
+    if (!localStorage.getItem("token")) return; // already "unauthorized" from initial state
 
-    if (!localStorage.getItem("token")) {
-      setStatus("unauthorized");
-      return;
-    }
+    const controller = new AbortController();
 
     apiFetch("/api/v1/users/me", { method: "GET", signal: controller.signal })
       .then((res) => {
