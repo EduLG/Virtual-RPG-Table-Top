@@ -14,12 +14,24 @@ class ServiceError(Exception):
         self.status_code = status_code
 
 
+def _validate_password(password):
+    import re
+    if len(password) < 8:
+        raise ServiceError("Password must be at least 8 characters.", 400)
+    if not re.search(r"[A-Z]", password):
+        raise ServiceError("Password must contain at least one uppercase letter.", 400)
+    if not re.search(r"[a-z]", password):
+        raise ServiceError("Password must contain at least one lowercase letter.", 400)
+
+
 def register_user(username, email, password):
     if not username or not email or not password:
         raise ServiceError("Missing data", 400)
 
     username = username.strip().lower()
     email = email.strip().lower()
+
+    _validate_password(password)
 
     if get_user_by_username(username):
         raise ServiceError("The user already exists", 409)
