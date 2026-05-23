@@ -3,6 +3,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Avatar, DropdownMenu } from "@radix-ui/themes";
 import useUser from "../hooks/useUser";
 import OnboardingModal from "../components/OnboardingModal";
+import { isDemoToken } from "../utils/jwt";
 import bgImage from "../assets/resources/bgImage.png";
 import headerlogo from "../assets/resources/header-logo.png";
 
@@ -25,6 +26,7 @@ const Home = () => {
   const { data: user, refetch } = useUser();
   const party = user?.party;
   const needsOnboarding = user && party && party.characters.length === 0;
+  const isDemo = isDemoToken(localStorage.getItem("token"));
 
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -46,6 +48,12 @@ const Home = () => {
     >
       {/* HEADER */}
       <header className="sticky top-0 z-20 backdrop-blur-md bg-header border-b border-faint">
+        {/* DEMO BANNER */}
+        {isDemo && (
+          <div className="w-full py-1.5 px-4 text-center text-xs font-semibold tracking-wide uppercase bg-[#c9973b]/15 border-b border-[#c9973b]/20 text-[#c9973b]">
+            Demo mode — changes are not saved
+          </div>
+        )}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Hamburger */}
