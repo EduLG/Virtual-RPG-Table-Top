@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, g
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.services.auth_service import ServiceError
@@ -8,6 +8,14 @@ from app.services.dungeon_service import get_dungeons, explore_dungeon, get_expl
 @jwt_required()
 def get_dungeons_handler():
     user_id = get_jwt_identity()
+
+    if g.get("is_demo"):
+        from app.demo.demo_services import demo_get_dungeons
+        try:
+            return jsonify(demo_get_dungeons(g.demo_session_id)), 200
+        except ServiceError as e:
+            return jsonify({"error": str(e)}), e.status_code
+
     try:
         result = get_dungeons(user_id)
         return jsonify(result), 200
@@ -20,6 +28,14 @@ def get_dungeons_handler():
 @jwt_required()
 def explore_dungeon_handler(dungeon_id):
     user_id = get_jwt_identity()
+
+    if g.get("is_demo"):
+        from app.demo.demo_services import demo_explore_dungeon
+        try:
+            return jsonify(demo_explore_dungeon(g.demo_session_id, dungeon_id)), 200
+        except ServiceError as e:
+            return jsonify({"error": str(e)}), e.status_code
+
     try:
         result = explore_dungeon(user_id, dungeon_id)
         return jsonify(result), 200
@@ -32,6 +48,14 @@ def explore_dungeon_handler(dungeon_id):
 @jwt_required()
 def get_exploration_status_handler():
     user_id = get_jwt_identity()
+
+    if g.get("is_demo"):
+        from app.demo.demo_services import demo_get_exploration_status
+        try:
+            return jsonify(demo_get_exploration_status(g.demo_session_id)), 200
+        except ServiceError as e:
+            return jsonify({"error": str(e)}), e.status_code
+
     try:
         result = get_exploration_status(user_id)
         return jsonify(result), 200
