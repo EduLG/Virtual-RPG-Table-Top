@@ -50,6 +50,32 @@ export function useAuth() {
     }
   };
 
+  // ----------------------------------------------------------- DEMO
+
+  const loginDemo = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${API_URL}/demo`, { method: "POST" });
+      const contentType = res.headers.get("content-type");
+      let data;
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        throw new Error("Invalid server response");
+      }
+      if (!res.ok) throw new Error(data.error || "Demo session failed");
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
+      return data;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // ----------------------------------------------------------- LOGIN
 
   const login = async (username, password) => {
@@ -92,6 +118,7 @@ export function useAuth() {
   return {
     register,
     login,
+    loginDemo,
     loading,
     error,
   };
