@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from app.routes.auth_routes import auth_bp
+from app.routes.health_routes import health_bp
 from app.routes.user_routes import user_bp
 from app.routes.equipment_routes import equipment_bp
 from app.routes.inventory_routes import inventory_bp
@@ -76,6 +77,7 @@ def create_app():
     from app.models.dungeon import Dungeon
     from app.models.exploration import Exploration
 
+    app.register_blueprint(health_bp, url_prefix="/api/v1/health")
     app.register_blueprint(auth_bp, url_prefix="/api/v1/auth")
     app.register_blueprint(user_bp, url_prefix="/api/v1/users")
     app.register_blueprint(equipment_bp, url_prefix="/api/v1/equipment")
