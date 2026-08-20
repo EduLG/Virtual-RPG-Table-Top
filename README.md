@@ -1,5 +1,7 @@
 # Dawn Of the Explorers
 
+[https://dawn-of-the-explorers.vercel.app/](https://dawn-of-the-explorers.vercel.app/)
+
 An exploratory-themed idle RPG where players manage a party of heroes, assign jobs, equip characters, and progress passively as the adventure unfolds.
 
 ## Tech stack
