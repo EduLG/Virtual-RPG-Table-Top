@@ -2,18 +2,17 @@
 
 An exploratory-themed idle RPG where players manage a party of heroes, assign jobs, equip characters, and progress passively as the adventure unfolds.
 
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://dawn-of-the-explorers.vercel.app/)
 [![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)](#tech-stack)
 [![Flask](https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white)](#tech-stack)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL_16-4169E1?style=flat&logo=postgresql&logoColor=white)](#tech-stack)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](#tech-stack)
 
-**[→ Try it live](https://dawn-of-the-explorers.vercel.app/)** — no account needed, click **Try Demo** on the login page.
+**[Check it here](https://dawn-of-the-explorers.vercel.app/)** — no account needed, click **Try Demo** on the login page.
 
 ## Tech stack
 
 | Layer          | Technology                                           |
-|----------------|------------------------------------------------------|
+| -------------- | ---------------------------------------------------- |
 | Frontend       | React 19 + Vite + Tailwind CSS                       |
 | Backend        | Flask + Flask-JWT-Extended + Flask-Migrate (Alembic) |
 | Database       | PostgreSQL 16                                        |
@@ -38,7 +37,7 @@ docker compose exec backend python seed_db.py
 > Schema migrations run automatically on every startup via Flask-Migrate.
 
 | Service  | URL                   |
-|----------|-----------------------|
+| -------- | --------------------- |
 | Frontend | http://localhost:5173 |
 | Backend  | http://localhost:5000 |
 
@@ -94,12 +93,12 @@ npm run dev
 
 Backend reads from `backend/.env` (or Docker environment):
 
-| Variable          | Required | Description                                                           |
-|-------------------|----------|-----------------------------------------------------------------------|
-| `DATABASE_URL`    | yes      | PostgreSQL connection string — `postgresql://user:pass@host:5432/db` |
-| `JWT_SECRET_KEY`  | yes      | Secret used to sign JWT tokens. Change before deploying to prod       |
-| `FLASK_DEBUG`     | no       | Set to `True` to enable debug mode and auto-reload                    |
-| `FRONTEND_URL`    | no       | Allowed CORS origin (default: `http://localhost:5173`)                |
+| Variable         | Required | Description                                                          |
+| ---------------- | -------- | -------------------------------------------------------------------- |
+| `DATABASE_URL`   | yes      | PostgreSQL connection string — `postgresql://user:pass@host:5432/db` |
+| `JWT_SECRET_KEY` | yes      | Secret used to sign JWT tokens. Change before deploying to prod      |
+| `FLASK_DEBUG`    | no       | Set to `True` to enable debug mode and auto-reload                   |
+| `FRONTEND_URL`   | no       | Allowed CORS origin (default: `http://localhost:5173`)               |
 
 JWT tokens expire after **24 hours**. A refresh token is issued alongside the access token.
 
@@ -113,14 +112,14 @@ JWT tokens expire after **24 hours**. A refresh token is issued alongside the ac
 Routes (Blueprint) → Handlers → Services → Repositories → Models → PostgreSQL
 ```
 
-| Layer           | Responsibility                                                    |
-|-----------------|-------------------------------------------------------------------|
-| `routes/`       | Flask Blueprints, URL registration                                |
-| `handlers/`     | Parse request, call services, format HTTP response                |
-| `services/`     | Business logic — validation, rating calculation, loot resolution  |
-| `repositories/` | Database query abstraction over SQLAlchemy                        |
-| `models/`       | ORM table definitions                                             |
-| `demo/`         | In-memory demo layer — mirrors the real stack with no DB writes   |
+| Layer           | Responsibility                                                   |
+| --------------- | ---------------------------------------------------------------- |
+| `routes/`       | Flask Blueprints, URL registration                               |
+| `handlers/`     | Parse request, call services, format HTTP response               |
+| `services/`     | Business logic — validation, rating calculation, loot resolution |
+| `repositories/` | Database query abstraction over SQLAlchemy                       |
+| `models/`       | ORM table definitions                                            |
+| `demo/`         | In-memory demo layer — mirrors the real stack with no DB writes  |
 
 Errors propagate via `ServiceError(message, status_code)`. All error responses use `{ "error": "message" }`.
 
@@ -131,7 +130,7 @@ AppRouter → Pages → Views → Hooks → fetch() → localStorage (JWT)
 ```
 
 | Layer                  | Responsibility                                                |
-|------------------------|---------------------------------------------------------------|
+| ---------------------- | ------------------------------------------------------------- |
 | `routes/AppRouter.jsx` | React Router config; wraps private routes in `ProtectedRoute` |
 | `pages/Home.jsx`       | Main shell — header, sidebar, navigation, logout              |
 | `pages/Login.jsx`      | Entry point — login, register, demo                           |
@@ -154,17 +153,17 @@ User (1) ──── (1) Party (1) ──── (N) Character (N) ──── 
 
 ### Tables
 
-| Model                | Key fields                                                                                  |
-|----------------------|---------------------------------------------------------------------------------------------|
-| `User`               | `id` (UUID), `username`, `email`, `password` (hashed)                                      |
-| `Party`              | `id`, `name`, `level`, `experience`, `user_id` FK                                           |
-| `Character`          | `id`, `name`, `party_id` FK, `current_job_id` FK                                            |
-| `Job`                | `id`, `name`, `icon`                                                                        |
-| `Equipment`          | `id`, `name`, `slot`, `rating`, `equipment_type`                                            |
-| `PartyInventory`     | `id`, `party_id` FK, `equipment_id` FK — items the party owns                              |
-| `CharacterEquipment` | `id`, `character_id` FK, `inventory_id` FK, `slot` — what is currently equipped            |
-| `Dungeon`            | `id`, `name`, `rating`, `min_rating`, `visibility_rating`, `duration`, `loot` (JSON)       |
-| `Exploration`        | `id`, `party_id`, `dungeon_id`, `started_at`, `ends_at`, `status`, `result` (JSON)         |
+| Model                | Key fields                                                                           |
+| -------------------- | ------------------------------------------------------------------------------------ |
+| `User`               | `id` (UUID), `username`, `email`, `password` (hashed)                                |
+| `Party`              | `id`, `name`, `level`, `experience`, `user_id` FK                                    |
+| `Character`          | `id`, `name`, `party_id` FK, `current_job_id` FK                                     |
+| `Job`                | `id`, `name`, `icon`                                                                 |
+| `Equipment`          | `id`, `name`, `slot`, `rating`, `equipment_type`                                     |
+| `PartyInventory`     | `id`, `party_id` FK, `equipment_id` FK — items the party owns                        |
+| `CharacterEquipment` | `id`, `character_id` FK, `inventory_id` FK, `slot` — what is currently equipped      |
+| `Dungeon`            | `id`, `name`, `rating`, `min_rating`, `visibility_rating`, `duration`, `loot` (JSON) |
+| `Exploration`        | `id`, `party_id`, `dungeon_id`, `started_at`, `ends_at`, `status`, `result` (JSON)   |
 
 ### Rating system
 
@@ -180,11 +179,11 @@ Each slot is unique per character (DB `UniqueConstraint`).
 
 ### Armor type — job affinity
 
-| Type      | Jobs                                          |
-|-----------|-----------------------------------------------|
-| `plate`   | warrior, fender                               |
-| `leather` | adventurer, gunslinger, thief, beastmaster    |
-| `cloth`   | engineer, alchemist, sage, scholar            |
+| Type      | Jobs                                       |
+| --------- | ------------------------------------------ |
+| `plate`   | warrior, fender                            |
+| `leather` | adventurer, gunslinger, thief, beastmaster |
+| `cloth`   | engineer, alchemist, sage, scholar         |
 
 A character can only equip items whose `equipment_type` matches their job's armor type.
 
@@ -201,7 +200,7 @@ All endpoints except `/api/v1/auth/*` require `Authorization: Bearer <token>`.
 ### Auth — `/api/v1/auth`
 
 | Method | Path        | Auth          | Description                                                             |
-|--------|-------------|---------------|-------------------------------------------------------------------------|
+| ------ | ----------- | ------------- | ----------------------------------------------------------------------- |
 | POST   | `/register` | No            | Create account. Body: `{ username, email, password }`                   |
 | POST   | `/login`    | No            | Sign in. Body: `{ username, password }`. Returns access + refresh token |
 | POST   | `/refresh`  | Refresh token | Issue a new access token                                                |
@@ -212,47 +211,47 @@ All endpoints except `/api/v1/auth/*` require `Authorization: Bearer <token>`.
 ### User — `/api/v1/users`
 
 | Method | Path  | Description                                                              |
-|--------|-------|--------------------------------------------------------------------------|
+| ------ | ----- | ------------------------------------------------------------------------ |
 | GET    | `/me` | Current user profile including party, characters, equipped items, rating |
 
 ### Party — `/api/v1/party`
 
-| Method | Path     | Description                                                                                    |
-|--------|----------|------------------------------------------------------------------------------------------------|
+| Method | Path     | Description                                                                                   |
+| ------ | -------- | --------------------------------------------------------------------------------------------- |
 | POST   | `/setup` | Name the party and create the 4 initial characters. Body: `{ party_name, characters: [...] }` |
 
 ### Jobs — `/api/v1/jobs`
 
-| Method | Path | Description            |
-|--------|------|------------------------|
+| Method | Path | Description             |
+| ------ | ---- | ----------------------- |
 | GET    |      | List all 10 job classes |
 
 ### Equipment — `/api/v1/equipment`
 
-| Method | Path                      | Description                                                  |
-|--------|---------------------------|--------------------------------------------------------------|
-| GET    | `?equipment_type=<type>`  | List all equipment of a given armor type (`plate` / `leather` / `cloth`) |
+| Method | Path                     | Description                                                              |
+| ------ | ------------------------ | ------------------------------------------------------------------------ |
+| GET    | `?equipment_type=<type>` | List all equipment of a given armor type (`plate` / `leather` / `cloth`) |
 
 ### Inventory — `/api/v1/inventory`
 
-| Method | Path           | Description                                                          |
-|--------|----------------|----------------------------------------------------------------------|
-| GET    |                | List all items in the party's inventory with equipped status         |
-| POST   | `/<id>/equip`  | Equip an item on a character. Body: `{ character_id, slot }`         |
-| DELETE | `/<id>`        | Remove an item from inventory. Body: `{ force: true }` to unequip   |
+| Method | Path          | Description                                                       |
+| ------ | ------------- | ----------------------------------------------------------------- |
+| GET    |               | List all items in the party's inventory with equipped status      |
+| POST   | `/<id>/equip` | Equip an item on a character. Body: `{ character_id, slot }`      |
+| DELETE | `/<id>`       | Remove an item from inventory. Body: `{ force: true }` to unequip |
 
 ### Dungeons — `/api/v1/dungeons`
 
-| Method | Path                   | Description                                                                  |
-|--------|------------------------|------------------------------------------------------------------------------|
-| GET    |                        | List dungeons visible to the current party rating                            |
-| POST   | `/<id>/explore`        | Start an exploration run                                                     |
-| GET    | `/exploration/status`  | Poll active exploration; resolves and grants loot when `ends_at` is reached  |
+| Method | Path                  | Description                                                                 |
+| ------ | --------------------- | --------------------------------------------------------------------------- |
+| GET    |                       | List dungeons visible to the current party rating                           |
+| POST   | `/<id>/explore`       | Start an exploration run                                                    |
+| GET    | `/exploration/status` | Poll active exploration; resolves and grants loot when `ends_at` is reached |
 
 #### Exploration loot resolution
 
 | Party rating / Dungeon rating | Outcome | Items granted |
-|-------------------------------|---------|---------------|
+| ----------------------------- | ------- | ------------- |
 | < 0.60                        | Failure | 0             |
 | 0.60 – 0.99                   | Success | 1             |
 | 1.00 – 1.16                   | Success | 2             |
