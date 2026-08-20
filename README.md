@@ -1,8 +1,14 @@
 # Dawn Of the Explorers
 
-[https://dawn-of-the-explorers.vercel.app/](https://dawn-of-the-explorers.vercel.app/)
-
 An exploratory-themed idle RPG where players manage a party of heroes, assign jobs, equip characters, and progress passively as the adventure unfolds.
+
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://dawn-of-the-explorers.vercel.app/)
+[![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)](#tech-stack)
+[![Flask](https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white)](#tech-stack)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL_16-4169E1?style=flat&logo=postgresql&logoColor=white)](#tech-stack)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](#tech-stack)
+
+**[→ Try it live](https://dawn-of-the-explorers.vercel.app/)** — no account needed, click **Try Demo** on the login page.
 
 ## Tech stack
 
